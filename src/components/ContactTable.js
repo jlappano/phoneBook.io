@@ -1,7 +1,26 @@
 import React, { PropTypes } from 'react';
 
+const propTypes = {
+    contacts: PropTypes.array
+};
+
+const defaultProps = {
+    contacts: [],
+};
+
 export default class ContactTable extends React.Component {
   render() {
+        let contactArray = [];
+        this.props.contacts.forEach(function (contact, i) {
+            contactArray.push(
+            <tr key={i}>
+              <td>{contact.name}</td>
+              <td>{contact.number}</td>
+              <td>{contact.context}</td>
+            </tr>);
+        }.bind(this));
+
+
     return (
         <div className="contact-table">
             <table className="u-full-width">
@@ -13,11 +32,7 @@ export default class ContactTable extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Dave Gamache</td>
-                  <td>203-751-5747</td>
-                  <td>Cell</td>
-                </tr>
+                {contactArray}
               </tbody>
             </table>
         </div>
