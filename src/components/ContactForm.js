@@ -1,19 +1,28 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes }  from 'react';
+//On Post, the Contact table should preform another GET request to refresh the new list of contacts
 
 const propTypes = {
+    countryCodes: PropTypes.array,
     postContact: PropTypes.func
 };
 
 const defaultProps = {
+    countryCodes: [],
     postContact: function(){}
 };
 
-//On Post, the Contact table should preform another GET request to refresh the new list of contacts
 
-
-export default class ContactForm extends React.Component {
+class ContactForm extends React.Component {
 
     render() {
+
+        let optionsArray = [];
+        this.props.countryCodes.forEach(function (countryObject, i) {
+            optionsArray.push(
+                <option key={i} data-code={countryObject.dial_code} value={countryObject.name}>{countryObject.name}</option>
+             );
+        });
+
         return (
             <div>
                 <h4>New Contact</h4>
@@ -23,11 +32,17 @@ export default class ContactForm extends React.Component {
                         <label>Name</label>
                         <input className="u-full-width" ref="name" type="text" id="nameInput"/>
                     </div>
-                    <div className="four columns">
-                        <label>Phone</label>
-                        <input className="u-full-width" ref="phone" type="text" placeholder="555-555-5555" id="phoneInput"/>
+                    <div className="two columns">
+                        <label>Country</label>
+                        <select onChange={this.populateDialCode.bind(this)} className="u-full-width" ref="country" id="countryInput">
+                        {optionsArray}
+                        </select>
                     </div>
-                    <div className="four columns">
+                    <div className="two columns">
+                        <label>Phone</label>
+                        <input className="u-full-width" ref="phone" type="text" id="phoneInput"/>
+                    </div>
+                    <div className="two columns">
                         <label>Context</label>
                         <input className="u-full-width" ref="context" type="text" placeholder="Home" id="contextInput"/>
                     </div>
@@ -38,8 +53,15 @@ export default class ContactForm extends React.Component {
         );
     }
 
+    populateDialCode(e) {
+
+        let index = e.nativeEvent.target.selectedIndex;
+        let dialCode = e.nativeEvent.target[index].dataset.code;
+        console.log(dialCode);
+        this.refs.phone.value = dialCode;
+    }
+
     submit(e) {
-        console.log(this);
         e.preventDefault();
         this.props.postContact(
             this.refs.name.value,
@@ -48,3 +70,5 @@ export default class ContactForm extends React.Component {
         )
     }
 }
+
+export default ContactForm

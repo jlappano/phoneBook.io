@@ -10,15 +10,15 @@ const defaultProps = {
 
 export default class ContactTable extends React.Component {
   render() {
-        let contactArray = [];
-        this.props.contacts.forEach(function (contact, i) {
-            contactArray.push(
-            <tr key={i}>
-              <td>{contact.name}</td>
-              <td>{contact.number}</td>
-              <td>{contact.context}</td>
-            </tr>);
-        }.bind(this));
+    let contactArray = [];
+    this.props.contacts.forEach(function (contact, i) {
+        contactArray.push(
+        <tr key={i}>
+          <td>{contact.name}</td>
+          <td>{contact.number}</td>
+          <td>{contact.context}</td>
+        </tr>);
+    }.bind(this));
 
 
     return (
