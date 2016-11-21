@@ -1,9 +1,14 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Signika+Negative');
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+h1, h2, h4 {
+  font-family: 'Signika Negative', Roboto, sans-serif;
 }
 
 .msg {
@@ -24,4 +29,13 @@ body {
 
 .error-msg {
   background-color: #d35757;
+}
+
+.dismiss {
+  float: right;
+  margin-top: 4px;
+}
+
+input[type="text"].required {
+    border: 1px solid #d35757;
 }

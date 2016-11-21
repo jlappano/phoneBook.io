@@ -117,45 +117,39 @@
     },
     {
       "id": 24,
-      "name": "Jason",
-      "number": "3",
-      "context": "work"
+      "name": "Test",
+      "number": "+178987",
+      "context": "test"
     },
     {
       "id": 25,
-      "name": "blpe",
-      "number": "333",
-      "context": "work"
+      "name": "Bork",
+      "number": "+1123123",
+      "context": "beek"
     },
     {
       "id": 26,
-      "name": "boop",
-      "number": "banana",
-      "context": "beep"
+      "name": "q",
+      "number": "+681",
+      "context": "w"
     },
     {
       "id": 27,
-      "name": "Julie",
-      "number": "+355665332",
-      "context": "home"
+      "name": "t",
+      "number": "+1555",
+      "context": "j"
     },
     {
       "id": 28,
-      "name": "Boop",
-      "number": "+358223123",
-      "context": "hme"
+      "name": "h",
+      "number": "+12",
+      "context": "w"
     },
     {
       "id": 29,
-      "name": "Boopy",
-      "number": "+3555667272",
-      "context": "work"
-    },
-    {
-      "id": 30,
-      "name": "Hercules",
-      "number": "+35866727272",
-      "context": "work"
+      "name": "w",
+      "number": "+1",
+      "context": "q"
     }
   ]
 }

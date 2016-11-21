@@ -14,10 +14,9 @@ class App extends Component {
     super(props);
     this.state = {
         contacts: [],
-        messages: []
+        listAlerts: []
     };
   }
-
 
   fetchContacts() {
     //scope this to component
@@ -29,10 +28,9 @@ class App extends Component {
           contacts: response.data
       });
     })
-    //TODO diplay error
     .catch(function (error) {
       appComponent.setState({
-          messages: [{
+          listAlerts: [{
             "type": "failed",
             "text": error.message
           }]
@@ -40,35 +38,9 @@ class App extends Component {
     });
   }
 
-
-  postContact(name, number, context) {
-    //scope this to component
-    let appComponent = this;
-    //id is required by json server for new contact
-    let id = appComponent.state.contacts.length + 1
-    axios.post('http://localhost:3004/contacts', {
-      id: id,
-      name: name,
-      number: number,
-      context: context
-    })
-    .then(function (response) {
-      console.log(response);
-      appComponent.setState({
-        messages: [{
-          "type": "success",
-          "text": "Created new contact for " + response.data.name
-        }]
-      });
-      appComponent.fetchContacts.call(appComponent);
-    })
-    .catch(function (error) {
-      appComponent.setState({
-        messages: [{
-          "type": "failed",
-          "text": error.message
-        }]
-      });
+  clearAlerts() {
+    this.setState({
+        listAlerts: []
     });
   }
 
@@ -99,8 +71,16 @@ class App extends Component {
             <h2>PhoneBook.io</h2>
           </section>
         </div>
-        <ContactList messages={this.state.messages} contacts={this.state.contacts}/>
-        <ContactForm messages={this.state.messages} postContact={this.postContact.bind(this)} countryCodes={CountryCodes}/>
+        <ContactForm 
+          fetchContacts={this.fetchContacts.bind(this)} 
+          countryCodes={CountryCodes}
+          contactLength={this.state.contacts.length}
+        />
+        <ContactList
+         alerts={this.state.listAlerts} 
+         contacts={this.state.contacts}
+         clearAlerts={this.clearAlerts.bind(this)}
+        />
       </div>
     );
   }

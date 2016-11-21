@@ -1,41 +1,98 @@
 import React, { PropTypes }  from 'react';
-//On Post, the Contact table should preform another GET request to refresh the new list of contacts
+import axios from 'axios';
+import Alerts from './Alerts';
 
-const propTypes = {
-    countryCodes: PropTypes.array,
-    postContact: PropTypes.func,
-    messages: PropTypes.array
-};
+let defaultDialCode = "+1";
+let defaultCountry = "United States";
 
-const defaultProps = {
-    countryCodes: [],
-    postContact: function(){},
-    messages: []
-};
+export default class ContactForm extends React.Component {
 
-class ContactForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            alerts: []
+        };
+    }
+
+    clearAlerts() {
+        this.setState({
+            alerts: []
+        });
+    }
+
+    postContact(name, number, context) {
+        //scope this to component
+        let formComponent = this;
+        //id is required by json server for new contact
+        let id = formComponent.props.contactLength + 1
+        axios.post('http://localhost:3004/contacts', {
+          id: id,
+          name: name,
+          number: number,
+          context: context
+        })
+        .then(function (response) {
+          formComponent.setState({
+            alerts: [{
+                "type": "success",
+                "text": "Created new contact for " + response.data.name
+            }]
+          });
+          formComponent.props.fetchContacts();
+        })
+        .catch(function (error) {
+          formComponent.setState({
+            alerts: [{
+              "type": "failed",
+              "text": error.message
+            }]
+          });
+        });
+    }
+
+    populateDialCode(e) {
+        let index = e.nativeEvent.target.selectedIndex;
+        let dialCode = e.nativeEvent.target[index].dataset.code;
+        this.refs.phone.value = dialCode;
+    }
+
+    validateInputs() {
+        let valid = true
+        if(this.refs.name.value === null || this.refs.name.value === ""){
+            this.refs.name.className += " required";
+            valid = false;
+        }
+        if(this.refs.phone.value === null || this.refs.phone.value === ""){
+            this.refs.phone.className += " required";
+            valid = false;
+        }
+        if(this.refs.context.value === null || this.refs.context.value === ""){
+            this.refs.context.className += " required";
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    submit(e) {
+        e.preventDefault();
+        if(this.validateInputs()){
+            this.postContact(
+                this.refs.name.value,
+                this.refs.phone.value,
+                this.refs.context.value
+            )
+        } else {
+            this.setState({
+                alerts: [{
+                    "type" : "failed",
+                    "text" : "Invalid form fields"
+                }]
+            });
+        }
+    }
 
     render() {
-
-        let messagesArray = [];
-        this.props.messages.forEach(function (messageObject, i) {
-            let htmlMessage = ""
-            if(messageObject.type == 'success'){
-                htmlMessage = <div key={i} className="msg success-msg">
-                  <i className="fa fa-check"></i>
-                  <span className="msg-content">{messageObject.text}</span>
-                </div>
-            } else {
-                htmlMessage = <div key={i} className="msg error-msg">
-                  <i className="fa fa-exclamation-triangle"></i>
-                  <span className="msg-content">{messageObject.text}</span>
-                </div>
-            }
-            messagesArray.push(
-                htmlMessage
-            );
-        });
-
         let optionsArray = [];
         this.props.countryCodes.forEach(function (countryObject, i) {
             optionsArray.push(
@@ -45,9 +102,7 @@ class ContactForm extends React.Component {
 
         return (
             <div>
-                <div className="row">
-                    {messagesArray}
-                </div>
+                <Alerts alerts={this.state.alerts} clearAlerts={this.clearAlerts.bind(this)}/>
                 <h4>New Contact</h4>
                 <form>
                     <div className="row">
@@ -59,13 +114,13 @@ class ContactForm extends React.Component {
                     <div className="row">
                         <div className="four columns">
                             <label>Country</label>
-                            <select onChange={this.populateDialCode.bind(this)} className="u-full-width" ref="country" id="countryInput">
+                            <select defaultValue={defaultCountry} onChange={this.populateDialCode.bind(this)} className="u-full-width" ref="country" id="countryInput">
                             {optionsArray}
                             </select>
                         </div>
                         <div className="four columns">
                             <label>Phone</label>
-                            <input className="u-full-width" ref="phone" type="text" id="phoneInput"/>
+                            <input className="u-full-width" ref="phone" type="text" id="phoneInput" defaultValue={defaultDialCode}/>
                         </div>
                         <div className="four columns">
                             <label>Context</label>
@@ -77,22 +132,16 @@ class ContactForm extends React.Component {
             </div>
         );
     }
-
-    populateDialCode(e) {
-        let index = e.nativeEvent.target.selectedIndex;
-        let dialCode = e.nativeEvent.target[index].dataset.code;
-        console.log(dialCode);
-        this.refs.phone.value = dialCode;
-    }
-
-    submit(e) {
-        e.preventDefault();
-        this.props.postContact(
-            this.refs.name.value,
-            this.refs.phone.value,
-            this.refs.context.value
-        )
-    }
 }
 
-export default ContactForm
+ContactForm.propTypes = {
+    countryCodes: PropTypes.array,
+    fetchContacts: PropTypes.func,
+    contactLength: PropTypes.number
+};
+
+ContactForm.defaultProps = {
+    countryCodes: [],
+    fetchContacts: function(){},
+    contactLength: 0
+};

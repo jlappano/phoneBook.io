@@ -1,13 +1,5 @@
 import React, { PropTypes } from 'react';
 
-const propTypes = {
-    contacts: PropTypes.array
-};
-
-const defaultProps = {
-    contacts: [],
-};
-
 export default class ContactTable extends React.Component {
   render() {
     let contactArray = [];
@@ -18,8 +10,7 @@ export default class ContactTable extends React.Component {
           <td>{contact.number}</td>
           <td>{contact.context}</td>
         </tr>);
-    }.bind(this));
-
+    });
 
     return (
         <div className="contact-table">
@@ -39,3 +30,11 @@ export default class ContactTable extends React.Component {
     );
   }
 }
+
+ContactTable.propTypes = {
+  contacts: PropTypes.array
+};
+
+ContactTable.defaultProps = {
+  contacts: []
+};
