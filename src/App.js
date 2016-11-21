@@ -13,7 +13,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        contacts: []
+        contacts: [],
+        messages: []
     };
   }
 
@@ -30,7 +31,12 @@ class App extends Component {
     })
     //TODO diplay error
     .catch(function (error) {
-      console.log(error);
+      appComponent.setState({
+          messages: [{
+            "type": "failed",
+            "text": error.message
+          }]
+      });
     });
   }
 
@@ -47,10 +53,22 @@ class App extends Component {
       context: context
     })
     .then(function (response) {
+      console.log(response);
+      appComponent.setState({
+        messages: [{
+          "type": "success",
+          "text": "Created new contact for " + response.data.name
+        }]
+      });
       appComponent.fetchContacts.call(appComponent);
     })
     .catch(function (error) {
-      console.log(error);
+      appComponent.setState({
+        messages: [{
+          "type": "failed",
+          "text": error.message
+        }]
+      });
     });
   }
 
@@ -76,11 +94,13 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <section className="header twelve columns">
-          <h2>PhoneBook.io</h2>
-        </section>
-        <ContactList contacts={this.state.contacts}/>
-        <ContactForm postContact={this.postContact.bind(this)} countryCodes={CountryCodes}/>
+        <div className="row">
+          <section className="header twelve columns">
+            <h2>PhoneBook.io</h2>
+          </section>
+        </div>
+        <ContactList messages={this.state.messages} contacts={this.state.contacts}/>
+        <ContactForm messages={this.state.messages} postContact={this.postContact.bind(this)} countryCodes={CountryCodes}/>
       </div>
     );
   }

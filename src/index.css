@@ -1,5 +1,27 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  font-family: 'Signika Negative', Roboto, sans-serif;
+  color: white;
+}
+
+.msg-content {
+    padding-left: 1em;
+}
+
+.success-msg {
+  background-color: #39cccc;
+}
+
+.error-msg {
+  background-color: #d35757;
 }
