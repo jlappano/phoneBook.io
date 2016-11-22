@@ -2,7 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+to get started, clone this repo and run
+```
 npm install
+```
 
 ## Available Scripts
 

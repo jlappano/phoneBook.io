@@ -87,14 +87,20 @@ export default class ContactForm extends React.Component {
         if(this.refs.name.value === null || this.refs.name.value === ""){
             this.toggleInputError(this.refs.name, false);
             valid = false;
+        } else {
+            this.toggleInputError(this.refs.name, true);
         }
         if(this.refs.phone.value === null || this.refs.phone.value === ""){
             this.toggleInputError(this.refs.phone, false);
             valid = false;
+        } else {
+            this.toggleInputError(this.refs.phone, true);
         }
         if(this.refs.context.value === null || this.refs.context.value === ""){
             this.toggleInputError(this.refs.context, false);
             valid = false;
+        } else {
+            this.toggleInputError(this.refs.context, true);
         }
 
         return valid;
@@ -139,9 +145,6 @@ export default class ContactForm extends React.Component {
                 <Alerts alerts={this.state.alerts} clearAlerts={this.clearAlerts.bind(this)}/>
                 <h4>New Contact</h4>
                 <form>
-                    <div className="row">
-
-                    </div>
                     <div className="row">
                         <div className="three columns">
                             <label>Name</label>

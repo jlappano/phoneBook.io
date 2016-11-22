@@ -24,7 +24,7 @@ class App extends Component {
     //scope this to component
     let appComponent = this;
     //get all contacts and set state on success
-    axios.get('http://localhost:3004/contacts')
+    axios.get('http://localhost:3004/contacts?_sort=name')
     .then(function (response) {
       appComponent.setState({
           contacts: response.data
