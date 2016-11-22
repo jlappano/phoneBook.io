@@ -1,5 +1,5 @@
 {
-  "name": "addressBook",
+  "name": "phoneBook",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -9,6 +9,7 @@
     "react-scripts": "0.7.0"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0"
   },
