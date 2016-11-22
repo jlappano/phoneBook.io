@@ -56,18 +56,26 @@ export default class ContactForm extends React.Component {
         this.refs.phone.value = dialCode;
     }
 
+    toggleInputError(element, isValid) {
+        if(isValid){
+            element.classList.remove("required");
+        } else {
+            element.classList.add("required");
+        }
+    }
+
     validateInputs() {
         let valid = true
         if(this.refs.name.value === null || this.refs.name.value === ""){
-            this.refs.name.className += " required";
+            this.toggleInputError(this.refs.name, false);
             valid = false;
         }
         if(this.refs.phone.value === null || this.refs.phone.value === ""){
-            this.refs.phone.className += " required";
+            this.toggleInputError(this.refs.phone, false);
             valid = false;
         }
         if(this.refs.context.value === null || this.refs.context.value === ""){
-            this.refs.context.className += " required";
+            this.toggleInputError(this.refs.context, false);
             valid = false;
         }
 
@@ -77,11 +85,16 @@ export default class ContactForm extends React.Component {
     submit(e) {
         e.preventDefault();
         if(this.validateInputs()){
+            //remove everything not a number or a + character
+            let formattedPhone = this.refs.phone.value.replace(/[^+0-9]/g, '');
             this.postContact(
                 this.refs.name.value,
-                this.refs.phone.value,
+                formattedPhone,
                 this.refs.context.value
             )
+            this.toggleInputError(this.refs.name, true);
+            this.toggleInputError(this.refs.phone, true);
+            this.toggleInputError(this.refs.context, true);
         } else {
             this.setState({
                 alerts: [{
