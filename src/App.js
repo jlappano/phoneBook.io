@@ -10,6 +10,7 @@ import { CountryCodes } from './data/CountryCodes';
 class App extends Component {
 
   //set initial state as empty contact array
+  //listAlerts will be populated by ajax and sent to contact list
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +19,7 @@ class App extends Component {
     };
   }
 
+  //get request for contacts
   fetchContacts() {
     //scope this to component
     let appComponent = this;
@@ -28,6 +30,7 @@ class App extends Component {
           contacts: response.data
       });
     })
+    //create error alert
     .catch(function (error) {
       appComponent.setState({
           listAlerts: [{
@@ -44,6 +47,7 @@ class App extends Component {
     });
   }
 
+  //query contact names for LIKE searchterm
   filterContact(searchTerm) {
     //scope this to component
     let appComponent = this;
@@ -53,6 +57,7 @@ class App extends Component {
           contacts: response.data
       });
     })
+    //create error alert
     .catch(function (error) {
       appComponent.setState({
           listAlerts: [{

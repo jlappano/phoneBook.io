@@ -4,6 +4,7 @@ import Alerts from './Alerts';
 
 export default class ContactList extends React.Component {
 
+    //triggers get request defined in App.js
     submit(e) {
         e.preventDefault();
         this.props.filterContact(this.refs.filter.value);
@@ -17,8 +18,8 @@ export default class ContactList extends React.Component {
                     <h4>Contact List</h4>
                 </div>
                 <div className="row">
-                        <input className="" ref="filter" type="search" placeholder="Filter By Name" id="filterInput"/>
-                        <a onClick={this.submit.bind(this)} className="button button-primary search-button" href="#"><i className="fa fa-search"></i></a>
+                    <input className="" ref="filter" type="search" placeholder="Filter By Name" id="filterInput"/>
+                    <a onClick={this.submit.bind(this)} className="button button-primary search-button" href="#"><i className="fa fa-search"></i></a>
                 </div>
                 <ContactTable contacts={this.props.contacts}/>
             </div>

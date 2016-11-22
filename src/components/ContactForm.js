@@ -14,12 +14,15 @@ export default class ContactForm extends React.Component {
         };
     }
 
+    //clear alerts and trigger re render
     clearAlerts() {
         this.setState({
             alerts: []
         });
     }
 
+    //POST request, create success alert and trigger get all request on success
+    //create error message on error
     postContact(name, number, context) {
         //scope this to component
         let formComponent = this;
@@ -50,12 +53,26 @@ export default class ContactForm extends React.Component {
         });
     }
 
+    //populate phone input with call prefix based on chosen country
     populateDialCode(e) {
         let index = e.nativeEvent.target.selectedIndex;
         let dialCode = e.nativeEvent.target[index].dataset.code;
         this.refs.phone.value = dialCode;
     }
 
+    //reset any error classes on inputs, revert to default values
+    resetInputs() {
+        this.toggleInputError(this.refs.name, true);
+        this.toggleInputError(this.refs.phone, true);
+        this.toggleInputError(this.refs.context, true);
+
+        this.refs.name.value = "";
+        this.refs.country.value = defaultCountry;
+        this.refs.phone.value = defaultDialCode;
+        this.refs.context.value = "";
+    }
+
+    //remove or add required class to outline inputs in red
     toggleInputError(element, isValid) {
         if(isValid){
             element.classList.remove("required");
@@ -64,6 +81,7 @@ export default class ContactForm extends React.Component {
         }
     }
 
+    //validate that all fields are not empty
     validateInputs() {
         let valid = true
         if(this.refs.name.value === null || this.refs.name.value === ""){
@@ -82,6 +100,11 @@ export default class ContactForm extends React.Component {
         return valid;
     }
 
+    //prevent form from submitting, 
+    //check validity of inputs
+    //strip extra characters from phone input
+    //make POST request, reset form on success
+    //create error alert on error 
     submit(e) {
         e.preventDefault();
         if(this.validateInputs()){
@@ -92,9 +115,7 @@ export default class ContactForm extends React.Component {
                 formattedPhone,
                 this.refs.context.value
             )
-            this.toggleInputError(this.refs.name, true);
-            this.toggleInputError(this.refs.phone, true);
-            this.toggleInputError(this.refs.context, true);
+            this.resetInputs();
         } else {
             this.setState({
                 alerts: [{
@@ -119,23 +140,24 @@ export default class ContactForm extends React.Component {
                 <h4>New Contact</h4>
                 <form>
                     <div className="row">
-                        <div className="four columns">
+
+                    </div>
+                    <div className="row">
+                        <div className="three columns">
                             <label>Name</label>
                             <input className="u-full-width" ref="name" type="text" id="nameInput"/>
                         </div>
-                    </div>
-                    <div className="row">
-                        <div className="four columns">
+                        <div className="three columns">
                             <label>Country</label>
                             <select defaultValue={defaultCountry} onChange={this.populateDialCode.bind(this)} className="u-full-width" ref="country" id="countryInput">
                             {optionsArray}
                             </select>
                         </div>
-                        <div className="four columns">
+                        <div className="three columns">
                             <label>Phone</label>
                             <input className="u-full-width" ref="phone" type="text" id="phoneInput" defaultValue={defaultDialCode}/>
                         </div>
-                        <div className="four columns">
+                        <div className="three columns">
                             <label>Context</label>
                             <input className="u-full-width" ref="context" type="text" placeholder="Home" id="contextInput"/>
                         </div>

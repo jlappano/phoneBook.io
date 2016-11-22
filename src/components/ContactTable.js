@@ -2,7 +2,11 @@ import React, { PropTypes } from 'react';
 
 export default class ContactTable extends React.Component {
   render() {
+
     let contactArray = [];
+
+    //render contacts for table
+    //contacts populated in App.js
     this.props.contacts.forEach(function (contact, i) {
         contactArray.push(
         <tr key={i}>

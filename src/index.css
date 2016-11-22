@@ -50,6 +50,10 @@ input[type="search"] {
   width: 60%;
 }
 
+input[type="submit"] {
+  margin-top: 15px;
+}
+
 /* For devices larger than 550px */
 @media (min-width: 550px) {
   input[type="search"] {
@@ -58,5 +62,5 @@ input[type="search"] {
 }
 
 input[type="text"].required {
-  border: 1px solid #d35757;
+  border: 2px solid #d35757;
 }
