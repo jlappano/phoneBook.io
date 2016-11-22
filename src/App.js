@@ -47,13 +47,19 @@ class App extends Component {
   filterContact(searchTerm) {
     //scope this to component
     let appComponent = this;
-    axios.get('http://localhost:3004/contacts?=' + searchTerm)
+    axios.get('http://localhost:3004/contacts?name_like=' + searchTerm)
     .then(function (response) {
-      console.log(response);
-      appComponent.fetchContacts.call(appComponent);
+      appComponent.setState({
+          contacts: response.data
+      });
     })
     .catch(function (error) {
-      console.log(error);
+      appComponent.setState({
+          listAlerts: [{
+            "type": "failed",
+            "text": error.message
+          }]
+      });
     });
   }
 
@@ -76,10 +82,12 @@ class App extends Component {
           countryCodes={CountryCodes}
           contactLength={this.state.contacts.length}
         />
+        <hr/>
         <ContactList
          alerts={this.state.listAlerts} 
          contacts={this.state.contacts}
          clearAlerts={this.clearAlerts.bind(this)}
+         filterContact={this.filterContact.bind(this)}
         />
       </div>
     );

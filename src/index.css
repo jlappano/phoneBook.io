@@ -36,6 +36,27 @@ h1, h2, h4 {
   margin-top: 4px;
 }
 
+.search-button {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 1px;
+}
+
+input[type="search"] {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  width: 60%;
+}
+
+/* For devices larger than 550px */
+@media (min-width: 550px) {
+  input[type="search"] {
+    width: 30.6666666667%;
+  }
+}
+
 input[type="text"].required {
-    border: 1px solid #d35757;
+  border: 1px solid #d35757;
 }
