@@ -21,18 +21,16 @@ class App extends Component {
 
   //get request for contacts
   fetchContacts() {
-    //scope this to component
-    let appComponent = this;
     //get all contacts and set state on success
     axios.get('http://localhost:3004/contacts?_sort=name')
-    .then(function (response) {
-      appComponent.setState({
+    .then((response) => {
+      this.setState({
           contacts: response.data
       });
     })
     //create error alert
-    .catch(function (error) {
-      appComponent.setState({
+    .catch((error) => {
+      this.setState({
           listAlerts: [{
             "type": "failed",
             "text": error.message
@@ -49,17 +47,15 @@ class App extends Component {
 
   //query contact names for LIKE searchterm
   filterContact(searchTerm) {
-    //scope this to component
-    let appComponent = this;
     axios.get('http://localhost:3004/contacts?name_like=' + searchTerm)
-    .then(function (response) {
-      appComponent.setState({
+    .then((response) => {
+      this.setState({
           contacts: response.data
       });
     })
     //create error alert
-    .catch(function (error) {
-      appComponent.setState({
+    .catch((error) => {
+      this.setState({
           listAlerts: [{
             "type": "failed",
             "text": error.message

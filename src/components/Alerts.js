@@ -4,22 +4,21 @@ export default class Alerts extends React.Component {
 
   render() {
     let alertArray = [];
-    let alertComponent = this;
 
     if(this.props.alerts.length > 0){
-        this.props.alerts.forEach(function (alertObject, i) {
+        this.props.alerts.forEach((alertObject, i) => {
             let htmlMessage = ""
             if(alertObject.type === 'success'){
                 htmlMessage = <div key={i} className="msg success-msg">
                   <i className="fa fa-check"></i>
                   <span className="msg-content">{alertObject.text}</span>
-                  <i onClick={alertComponent.props.clearAlerts.bind(this)} className="dismiss fa fa-close"></i>
+                  <i onClick={this.props.clearAlerts.bind(this)} className="dismiss fa fa-close"></i>
                 </div>
             } else {
                 htmlMessage = <div key={i} className="msg error-msg">
                   <i className="fa fa-exclamation-triangle"></i>
                   <span className="msg-content">{alertObject.text}</span>
-                  <i onClick={alertComponent.props.clearAlerts.bind(this)} className="dismiss fa fa-close"></i>
+                  <i onClick={this.props.clearAlerts.bind(this)} className="dismiss fa fa-close"></i>
                 </div>
             }
             alertArray.push(

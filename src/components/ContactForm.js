@@ -24,27 +24,25 @@ export default class ContactForm extends React.Component {
     //POST request, create success alert and trigger get all request on success
     //create error message on error
     postContact(name, number, context) {
-        //scope this to component
-        let formComponent = this;
         //id is required by json server for new contact
-        let id = formComponent.props.contactLength + 1
+        let id = this.props.contactLength + 1
         axios.post('http://localhost:3004/contacts', {
           id: id,
           name: name,
           number: number,
           context: context
         })
-        .then(function (response) {
-          formComponent.setState({
+        .then((response) => {
+          this.setState({
             alerts: [{
                 "type": "success",
                 "text": "Created new contact for " + response.data.name
             }]
           });
-          formComponent.props.fetchContacts();
+          this.props.fetchContacts();
         })
-        .catch(function (error) {
-          formComponent.setState({
+        .catch((error) => {
+          this.setState({
             alerts: [{
               "type": "failed",
               "text": error.message
@@ -134,7 +132,7 @@ export default class ContactForm extends React.Component {
 
     render() {
         let optionsArray = [];
-        this.props.countryCodes.forEach(function (countryObject, i) {
+        this.props.countryCodes.forEach((countryObject, i) => {
             optionsArray.push(
                 <option key={i} data-code={countryObject.dial_code} value={countryObject.name}>{countryObject.name}</option>
              );

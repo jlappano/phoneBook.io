@@ -7,7 +7,7 @@ export default class ContactTable extends React.Component {
 
     //render contacts for table
     //contacts populated in App.js
-    this.props.contacts.forEach(function (contact, i) {
+    this.props.contacts.forEach((contact, i) => {
         contactArray.push(
         <tr key={i}>
           <td>{contact.name}</td>
