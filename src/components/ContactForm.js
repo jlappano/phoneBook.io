@@ -2,8 +2,8 @@ import React, { PropTypes }  from 'react';
 import axios from 'axios';
 import Alerts from './Alerts';
 
-let defaultDialCode = "+1";
-let defaultCountry = "United States";
+const defaultDialCode = "+1";
+const defaultCountry = "United States";
 
 export default class ContactForm extends React.Component {
 
