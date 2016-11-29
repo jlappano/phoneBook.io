@@ -80,6 +80,7 @@ export default class ContactForm extends React.Component {
     }
 
     //validate that all fields are not empty
+    //add red border if input is not valid 
     validateInputs() {
         let valid = true
         if(this.refs.name.value === null || this.refs.name.value === ""){
