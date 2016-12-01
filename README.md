@@ -27,3 +27,9 @@ $ npm run api
 
 Runs the json server using data from db.json<br>
 Open [http://localhost:3004/contact](http://localhost:3004/contacts) to view all contacts.
+
+```
+$ npm test
+```
+
+Runs the test suite located in the /tests directory<br>

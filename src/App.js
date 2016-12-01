@@ -46,6 +46,7 @@ class App extends Component {
   }
 
   //query contact names for LIKE searchterm
+  //useful for future pagination
   filterContact(searchTerm) {
     axios.get('http://localhost:3004/contacts?name_like=' + searchTerm)
     .then((response) => {

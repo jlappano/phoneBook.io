@@ -25,7 +25,8 @@ export default class ContactForm extends React.Component {
     //create error message on error
     postContact(name, number, context) {
         //id is required by json server for new contact
-        let id = this.props.contactLength + 1
+        //safeguards users submitting in same millisecond
+        let id = new Date().getUTCMilliseconds() + Math.random();
         axios.post('http://localhost:3004/contacts', {
           id: id,
           name: name,
