@@ -114,18 +114,6 @@
       "number": "+12285515150",
       "context": "facebook",
       "name": "Cushing Mckeown"
-    },
-    {
-      "id": 24,
-      "name": "Beep",
-      "number": "+1876876",
-      "context": "boop"
-    },
-    {
-      "id": 25,
-      "name": "beep",
-      "number": "+1987987++",
-      "context": "bop"
     }
   ]
 }

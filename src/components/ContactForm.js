@@ -26,7 +26,7 @@ export default class ContactForm extends React.Component {
     postContact(name, number, context) {
         //id is required by json server for new contact
         //safeguards users submitting in same millisecond
-        let id = new Date().getUTCMilliseconds() + Math.random();
+        let id = new Date().getTime() + Math.random();
         axios.post('http://localhost:3004/contacts', {
           id: id,
           name: name,
